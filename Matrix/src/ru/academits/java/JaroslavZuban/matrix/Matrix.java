@@ -22,6 +22,7 @@ public class Matrix {
         }
     }
 
+
     public Matrix(Matrix matrix1) {
         this.matrix = new Vector[matrix1.matrixSizeColumn()];
 

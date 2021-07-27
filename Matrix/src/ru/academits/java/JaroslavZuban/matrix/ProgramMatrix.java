@@ -10,6 +10,8 @@ public class ProgramMatrix {
         Matrix matrix = new Matrix(array);
         Matrix matrix1 = new Matrix(mas);
 
+
+
         Matrix matrix2;
         try {
             matrix2=Matrix.multiplicationMatrix(matrix,matrix1);
