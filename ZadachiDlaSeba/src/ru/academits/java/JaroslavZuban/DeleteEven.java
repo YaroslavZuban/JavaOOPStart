@@ -15,7 +15,7 @@ public class DeleteEven {
         int i = 0;
 
         while (i < number.size() && number.get(i) % 2 == 0) {
-            number.remove(i);`
+            number.remove(i);
             i++;
         }
 
