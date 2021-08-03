@@ -211,4 +211,6 @@ public class Vector {
 
         return scalarSum;
     }
+
+
 }
