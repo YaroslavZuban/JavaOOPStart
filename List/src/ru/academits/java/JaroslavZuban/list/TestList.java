@@ -15,11 +15,12 @@ public class TestList {
         name.insertElementBeginning(knot3);
         name.insertElementBeginning(knot5);
         name.insertElementBeginning(knot11);
-
         name.print();
 
-        name.reversalList();
-        name.print();
+
+        SinglyLinkedList<Integer> name1=new SinglyLinkedList<>();
+        name1.copy(name);
+        name1.print();
 
     }
 }

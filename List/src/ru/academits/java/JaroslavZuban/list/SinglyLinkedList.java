@@ -176,4 +176,22 @@ public class SinglyLinkedList<T> {
         System.out.println();
     }
 
+    public void copy(SinglyLinkedList<T> copyList){
+        if(copyList.lengthList()<=0){
+            throw new NullPointerException("Список пуст");
+        }
+
+        this.head=new ListItem<>();
+        int i=0;
+
+        for(ListItem<T> p = head;i<copyList.lengthList() && copyList.getElementIndex(i)!=null;p=p.getNext(),i++){
+            if(i==copyList.lengthList()-1){
+                p.setNext(null);
+            }else{
+                p.setNext(new ListItem<>());
+            }
+
+            p.setData(copyList.getElementIndex(i));
+        }
+    }
 }
