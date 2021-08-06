@@ -18,13 +18,17 @@ public class TestProgram {
 
         System.out.println(tree.getNumberSheets());
         System.out.print("Print: ");
-        tree.print();
+        tree.printRecursion();
 
         System.out.println();
         System.out.println("Element: "+tree.searchElement(new ListItem(4)));
 
         tree.removeNode(new ListItem(4));
         System.out.print("Print: ");
-        tree.print();
+        tree.printRecursion();
+
+        System.out.println();
+        System.out.print("Print: ");
+        tree.printBreadthFirstTraversal();
     }
 }

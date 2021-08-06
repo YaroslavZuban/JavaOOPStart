@@ -1,33 +1,34 @@
 package ru.academits.java.JaroslavZuban.tree;
+import java.util.LinkedList;
+import java.util.Queue;
 
-
-public class Tree {
-    private ListItem head;
+public class Tree<T extends Comparable> {
+    private ListItem<T> head;
     private int numberSheets;
 
     public Tree() {
         this.numberSheets = 0;
-        this.head = new ListItem();
+        this.head = new ListItem<>();
     }
 
     public int getNumberSheets() {
         return numberSheets;
     }
 
-    public void addSheets(Integer element) {
-        ListItem listItem = new ListItem();
+    public void addSheets(T element) {
+        ListItem<T> listItem = new ListItem<>();
         listItem.setData(element);
 
         if (this.head.getData() == null) {
             this.head = listItem;
             this.numberSheets++;
         } else {
-            ListItem current = this.head;
-            ListItem prev = null;
+            ListItem<T> current = this.head;
+            ListItem<T> prev = null;
 
             while (true) {
                 prev = current;
-                if (element <= prev.getData()) {
+                if ( (prev.getData()).compareTo(element)>=0) {
                     current = current.getLeft();
 
                     if (current == null) {
@@ -48,45 +49,82 @@ public class Tree {
         }
     }
 
-    public void print() {
-        printTree(head);
+    public void printRecursion() {
+        printRecursionTree(head);
     }
 
-    public boolean searchElement(ListItem element) {
+    public void printBreadthFirstTraversal(){
+        Queue<ListItem<T>> queue=new LinkedList<>();
+        ListItem<T> list=head;
+
+        do{
+            System.out.print(list.getData()+" ");
+
+            if(list.getLeft()!=null){
+                queue.add(list.getLeft());
+            }
+
+            if(list.getRight()!=null){
+                queue.add(list.getRight());
+            }
+
+            if(!queue.isEmpty()){
+                list=queue.poll();
+            }
+        }while (!queue.isEmpty());
+    }
+
+    public boolean searchElement(ListItem<T> element) {
         return searchElementTree(element, head);
     }
 
 
-    public void removeNode(ListItem element) {
+    public void removeNode(ListItem<T> element) {
         this.head = removeNodeTree(this.head, element.getData());
+        this.numberSheets--;
     }
 
-    private ListItem removeNodeTree(ListItem element, Integer number) {
-        if (element == null) {
-            return null;
-        }
+    private ListItem<T> removeNodeTree(ListItem<T> element, T number) {
+            if(element == null)
+                return null;
 
-        if (number < element.getData()) {
-            element.setLeft(removeNodeTree(element.getLeft(), number));
-        } else if (number > element.getData()) {
-            element.setRight(removeNodeTree(element.getRight(), number));
-        } else if (element.getLeft() != null && element.getRight() != null) {
-            element.setData(minValue(element.getRight()));
-            element.setRight(removeNodeTree(element.getRight(), number));
-        } else {
-            if (element.getLeft() != null) {
-                element = element.getLeft();
-            } else if (element.getRight() != null) {
-                element = element.getRight();
+            if(number == element.getData()){
+                ListItem<T> tmp;
+
+                if(element.getRight() == null)
+                    tmp = element.getLeft();
+                else {
+                    ListItem<T> ptr = element.getRight();
+
+                    if(ptr.getLeft() == null){
+                        ptr.setLeft(element.getLeft());
+                        tmp = ptr;
+                    } else {
+                        ListItem<T> pmin = ptr.getLeft();
+
+                        while(ptr.getLeft() != null){
+                            ptr  = pmin;
+                            pmin = ptr.getLeft();
+                        }
+
+                        ptr.setLeft(pmin.getRight());
+                        pmin.setLeft(element.getLeft());
+                        pmin.setRight(element.getRight());
+                        tmp = pmin;
+                    }
+                }
+
+                return tmp;
+            } else if(number.compareTo( element.getData())<0) {
+                element.setLeft(removeNodeTree(element.getLeft(), number));
             } else {
-                element = null;
+                element.setRight(removeNodeTree(element.getRight(), number));
             }
+
+            return element;
         }
 
-        return element;
-    }
-
-    private boolean searchElementTree(ListItem element, ListItem getHead) {
+    private boolean searchElementTree(ListItem<T> element, ListItem<T> getHead) {
         if (getHead == null || element == null) {
             return false;
         }
@@ -95,7 +133,7 @@ public class Tree {
             return true;
         }
 
-        if (element.getData() < getHead.getData()) {
+        if ((element.getData()).compareTo( getHead.getData())<0) {
             return searchElementTree(element, getHead.getLeft());
         } else {
             return searchElementTree(element, getHead.getRight());
@@ -103,19 +141,19 @@ public class Tree {
 
     }
 
-    private void printTree(ListItem list) {
+    private void printRecursionTree(ListItem<T> list) {
         if (list == null) {
             return;
         }
 
         System.out.print(list.getData() + " ");
-
-        printTree(list.getLeft());
-        printTree(list.getRight());
+        printRecursionTree(list.getLeft());
+        printRecursionTree(list.getRight());
     }
 
 
-    private Integer minValue(ListItem node) {
+
+    private T minValue(ListItem<T> node) {
         if (node.getLeft() == null) {
             return node.getData();
         }

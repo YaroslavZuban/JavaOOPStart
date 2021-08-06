@@ -2,16 +2,16 @@ package ru.academits.java.JaroslavZuban.tree;
 
 import java.util.Objects;
 
-public class ListItem {
-    private  Integer data;
-    private ListItem left;
-    private ListItem right;
+public class ListItem<T extends Comparable> {
+    private  T data;
+    private ListItem<T> left;
+    private ListItem<T> right;
 
-    public ListItem(Integer  data){
+    public ListItem(T  data){
         this.data=data;
     }
 
-    public ListItem(Integer data,ListItem left,ListItem right){
+    public ListItem(T data,ListItem<T> left,ListItem<T> right){
         this.data=data;
         this.left=left;
         this.right=right;
@@ -19,28 +19,28 @@ public class ListItem {
 
     public ListItem(){}
 
-    public Integer getData(){
+    public T getData(){
         return data;
     }
 
-    public void setData(Integer data){
+    public void setData(T data){
         this.data=data;
     }
 
 
-    public ListItem getLeft() {
+    public ListItem<T> getLeft() {
         return left;
     }
 
-    public void setLeft(ListItem left) {
+    public void setLeft(ListItem<T> left) {
         this.left = left;
     }
 
-    public ListItem getRight() {
+    public ListItem<T> getRight() {
         return right;
     }
 
-    public void setRight(ListItem right) {
+    public void setRight(ListItem<T> right) {
         this.right = right;
     }
 
