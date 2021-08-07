@@ -18,8 +18,9 @@ public class TestList {
         name.print();
 
 
+        SinglyLinkedList<Integer> name2=new SinglyLinkedList<>();
         SinglyLinkedList<Integer> name1=new SinglyLinkedList<>();
-        name1.copy(name);
+        name1.copy(name2);
         name1.print();
 
     }

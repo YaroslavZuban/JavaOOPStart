@@ -62,11 +62,11 @@ public class SinglyLinkedList<T> {
             this.head = head.getNext();
         } else {
             for (ListItem<T> p = head; p != null; p = p.getNext(), i++) {
+                oldElement = p.getNext().getData();
+
                 if (index - 1 == length && index - 1 == i) {
-                    oldElement = p.getNext().getData();
                     p.setNext(null);
                 } else if (i == index - 1) {
-                    oldElement = p.getNext().getData();
                     p.setNext(p.getNext().getNext());
                 }
             }
@@ -78,7 +78,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void insertElementBeginning(ListItem<T> element) {//вставить в начало элемент
-        if (this.length == 0) {
+        if (head==null) {
             this.head = new ListItem<>(element.getData());
         } else {
             element.setNext(head);
@@ -89,13 +89,12 @@ public class SinglyLinkedList<T> {
     }
 
     public void insertElementIndex(ListItem<T> element, int index) {//вставить элемент по идексу
-        if (index > length) {
+        if (index >= length) {
             throw new ArrayIndexOutOfBoundsException("Нет такого индекса в списке ");
         }
 
         if (index == 0) {
-            element.setNext(head);
-            this.head = element;
+            this.head = new ListItem<>(element.getData());
         } else {
             int i = 0;
 
@@ -113,6 +112,10 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean deleteElementMeaning(T data) {//удаления элемента по значению
+        if(head==null){
+            throw new NullPointerException("Список пуст");
+        }
+
         int i = 0;
         ListItem<T> list;
 
@@ -144,7 +147,7 @@ public class SinglyLinkedList<T> {
         return false;
     }
 
-    public T deleteOneElement() {//удаления первого элемента
+    public T deleteFirstElement() {//удаления первого элемента
         T oldElement = head.getData();
         this.head = new ListItem<>(head.getNext().getData(), head.getNext().getNext());
         this.length--;
@@ -152,7 +155,7 @@ public class SinglyLinkedList<T> {
         return oldElement;
     }
 
-    public void reversalList() {//разворот списка
+    public void reverseList() {//разворот списка
         ListItem<T> listItem = null;
         ListItem<T> temp = head;
 
@@ -177,10 +180,6 @@ public class SinglyLinkedList<T> {
     }
 
     public void copy(SinglyLinkedList<T> copyList){
-        if(copyList.lengthList()<=0){
-            throw new NullPointerException("Список пуст");
-        }
-
         this.head=new ListItem<>();
         int i=0;
 
