@@ -73,7 +73,7 @@ public class Graph {
         queue.add(v);
 
         while (!queue.isEmpty()) {
-            int currentVertex = queue.getFirst();
+            int currentVertex = queue.poll();
 
             while ((vertex = getUnvisitedVertex(currentVertex)) != -1) {
                 vertexArray[vertex].setVisited(true);
